@@ -1,0 +1,27 @@
+<div class="container-fluid bg-light p-3">
+  <div class="container p-3">
+    <h1 class="text-center p-3"> Login</h1>
+    <div class="text-danger text-center m-2">{{this.msg}}</div>
+    <form id="productForm" method="post" action="/api/sessions/login">
+      <div class="mb-1 mx-5 d-flex">
+        <label class="form-label mx-3 align-self-center" for="email">Email</label>
+        <input class="form-control" type="text" name="email" id="email" />
+      </div>
+      <div class="mb-1 mx-5 d-flex">
+        <label class="form-label mx-3 align-self-center" for="password">Contraseña</label>
+        <input class="form-control" type="password" name="password" id="password" />
+      </div>
+      <div class="pb-1 mx-5 text-center">
+        <button class="btn btn-success" type="submit">Entrar</button>
+      </div>
+    </form>
+    <div class="container text-center">
+      <p>ó</p>
+      <a class="btn btn-outline-success" href="/register">Registrate</a>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="/js/index.js"></script>
