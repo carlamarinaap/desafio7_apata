@@ -17,6 +17,18 @@ class UserManager {
   getUserByCreds = async (email, password) => {
     return await UserSchema.findOne({ email, password });
   };
+
+  updatePassword = async (email, password) => {
+    try {
+      await UserSchema.findOneAndUpdate(
+        { email: email },
+        { $set: { password: password } },
+        { new: true }
+      );
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 }
 
 export default UserManager;

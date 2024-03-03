@@ -1,5 +1,6 @@
 import express from "express";
 import UserManager from "../dao/manager_mongo/userManager.js";
+import { createHash, isValidPassword } from "../utils/crypt.js";
 
 const um = new UserManager();
 const router = express.Router();
@@ -25,7 +26,14 @@ router.post("/register", async (req, res) => {
         msg = "Ya existe un usario con este correo electrónico";
         res.render("register", { msg });
       } else {
-        const user = { first_name, last_name, age, email, password, is_admin: false };
+        const user = {
+          first_name,
+          last_name,
+          age,
+          email,
+          password: createHash(password),
+          is_admin: false,
+        };
         const addUser = await um.addUser(user);
         if (addUser) {
           req.session.user = user;
@@ -41,7 +49,6 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   let { email, password } = req.body;
-  const user = await um.getUser(email);
   if (email === userCoderAdmin.email) {
     if (password === userCoderAdmin.password) {
       req.session.user = userCoderAdmin;
@@ -51,9 +58,10 @@ router.post("/login", async (req, res) => {
       res.render("login", { msg });
     }
   } else {
+    const user = await um.getUser(email);
     if (user) {
-      const userCred = await um.getUserByCreds(email, password);
-      if (userCred) {
+      // const userCred = await um.getUserByCreds(email, password);
+      if (isValidPassword(password, user.password)) {
         req.session.user = user;
         res.redirect("/products");
       } else {
@@ -63,6 +71,16 @@ router.post("/login", async (req, res) => {
     } else {
       res.redirect("/register");
     }
+  }
+});
+
+router.post("/passwordRestore", async (req, res) => {
+  let { email, password, confirm } = req.body;
+  const user = await um.getUser(email);
+  if (user && password && confirm && password === confirm) {
+    const passwdHash = createHash(password);
+    await um.updatePassword(email, passwdHash);
+    res.redirect("/login");
   }
 });
 

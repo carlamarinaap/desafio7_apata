@@ -56,10 +56,12 @@ router.get("/products", async (req, res) => {
     products.nextLink = products.hasNextPage
       ? `http://localhost:8080/products?page=${products.nextPage}`
       : null;
+    // res.render("products", { products, limit, page, isValid, user });
     res.render("products", { products, limit, page, isValid, user });
   } else {
     let msg = "Inicie sesión para ver los productos";
-    res.render("login", { msg });
+    // res.render("login", { msg });
+    res.status(401).render("login", { msg });
   }
 });
 
@@ -67,6 +69,7 @@ router.get("/register", async (req, res) => {
   if (req.session.user) {
     res.redirect("/products");
   } else {
+    // res.render("register");
     res.render("register");
   }
 });
@@ -75,6 +78,7 @@ router.get("/login", async (req, res) => {
   if (req.session.user) {
     res.redirect("/products");
   } else {
+    // res.render("login");
     res.render("login");
   }
 });
@@ -84,8 +88,13 @@ router.get("/profile", async (req, res) => {
     res.render("profile", req.session.user);
   } else {
     let msg = "Inicie sesión para ver su perfil";
-    res.render("login", { msg });
+    // res.render("login", { msg });
+    res.status(401).render("login", { msg });
   }
+});
+
+router.get("/passwordRestore", async (req, res) => {
+  res.render("passwordRestore");
 });
 
 export default router;

@@ -1,4 +1,10 @@
 /* --------CAPA DE INTERACCION---------- */
+/*
+App ID: 848187
+
+Client ID: Iv1.6d1c1b3a5778cb34
+ClientSecret: f32f2f88be9538ea9b924bd11e56c02c74a2d2a2
+*/
 
 // Libs
 import express from "express";
