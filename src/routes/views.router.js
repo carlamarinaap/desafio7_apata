@@ -69,9 +69,18 @@ router.get("/register", async (req, res) => {
   if (req.session.user) {
     res.redirect("/products");
   } else {
-    // res.render("register");
     res.render("register");
   }
+});
+router.get("/failRegister", async (req, res) => {
+  console.log(req.body);
+  let msg = "Debe completar todos los campos";
+  res.render("register", { msg });
+});
+
+router.get("/faillogin", async (req, res) => {
+  let msg = "Debe completar todos los campos";
+  res.render("login", { msg });
 });
 
 router.get("/login", async (req, res) => {

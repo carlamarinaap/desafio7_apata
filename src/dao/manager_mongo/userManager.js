@@ -3,10 +3,10 @@ import UserSchema from "../models/user.schema.js";
 class UserManager {
   addUser = async (user) => {
     try {
-      await UserSchema.insertMany(user);
+      await UserSchema.create(user);
       return user;
     } catch (error) {
-      throw new Error(`Error al agregar producto: ${error.message}`);
+      throw new Error(`Error al agregar el usuario: ${error.message}`);
     }
   };
 

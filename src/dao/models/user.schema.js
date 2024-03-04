@@ -7,20 +7,16 @@ const UserSchema = new mongoose.Schema({
   },
   last_name: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   age: {
     type: Number,
-    required: true,
   },
   password: {
     type: String,
-    required: true,
   },
   is_admin: {
     type: Boolean,
