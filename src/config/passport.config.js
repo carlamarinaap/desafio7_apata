@@ -107,13 +107,20 @@ const initializePassport = () => {
     )
   );
   passport.serializeUser((user, done) => {
-    console.log(user);
-    done(null, user._id);
+    if (user.email === "adminCoder@coder.com") {
+      done(null, user.email);
+    } else {
+      done(null, user._id);
+    }
   });
 
   passport.deserializeUser(async (id, done) => {
-    console.log(id);
-    let user = await userSchema.findById(id);
+    let user;
+    if (id === "adminCoder@coder.com") {
+      user = userCoderAdmin;
+    } else {
+      user = await userSchema.findById(id);
+    }
     done(null, user);
   });
 };
