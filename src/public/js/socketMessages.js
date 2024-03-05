@@ -22,6 +22,7 @@ Swal.fire({
 send.addEventListener("click", (e) => {
   e.preventDefault();
   const message = { user: user, message: input.value };
+  document.getElementById("msg").value = "";
   socket.emit("newMessage", message);
 });
 
@@ -46,5 +47,6 @@ socket.on("chat", (data) => {
     </div>
     `;
   });
+  input.value = "";
   chat.innerHTML = allMessages.join("");
 });

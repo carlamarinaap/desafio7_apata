@@ -11,8 +11,8 @@ const cm = new CartsManager();
 const um = new UserManager();
 
 router.get("/", async (req, res) => {
-  const products = await pm.getProducts();
-  const allProducts = await pm.getProducts(products.totalDocs);
+  // const products = await pm.getProducts();
+  // const allProducts = await pm.getProducts(products.totalDocs);
   // res.render("home", { allProducts });
   res.redirect("/login");
 });

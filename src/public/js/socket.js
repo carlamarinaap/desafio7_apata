@@ -36,6 +36,14 @@ socket.on("card", (data) => {
     </div>
     `;
   });
+
+  title.value = "";
+  description.value = "";
+  price.value = "";
+  code.value = "";
+  stock.value = "";
+  category.value = "";
+
   productList.innerHTML = allCArds.join("");
 });
 
